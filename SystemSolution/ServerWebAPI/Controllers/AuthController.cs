@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using ServerWebAPI.DTOs;
 using System.Security.Claims;
 using ServerWebAPI.Model;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ServerWebAPI.Controllers
 {
@@ -86,7 +89,25 @@ namespace ServerWebAPI.Controllers
 					claims.Add(new Claim(ClaimTypes.Role, role));
 				}
 			}
-			return Ok("Usuri logeat");
+			return Ok( CreateToken(claims.ToArray()));
+		}
+		private string CreateToken(Claim[] claims)
+		{
+			var jwtConfig = _configuration.GetSection("JwtSettings");
+			var secretKey = jwtConfig["Key"];
+			var issuer = jwtConfig["Issuer"];
+			var audience = jwtConfig["Audience"];
+			var expirationMinutes = int.Parse(jwtConfig["ExpirationMinutes"]);
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+			var token = new JwtSecurityToken(
+				issuer: issuer,
+				audience: audience,
+				claims: claims,
+				expires: DateTime.Now.AddMinutes(expirationMinutes),
+				signingCredentials: creds
+			);
+			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 	}
 }
