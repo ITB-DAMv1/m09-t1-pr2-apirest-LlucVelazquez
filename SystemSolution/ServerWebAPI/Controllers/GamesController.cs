@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -49,7 +50,8 @@ namespace ServerWebAPI.Controllers
 
         // PUT: api/Games/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutGame(int id, Game game)
         {
             if (id != game.Id)
@@ -112,8 +114,25 @@ namespace ServerWebAPI.Controllers
             return _context.Games.Any(e => e.Id == id);
         }
 
-		/*[Authorize]
-		 HttpPost fer vot utilitzant alguna cosa
-		 * */
+		[Authorize(Roles = "User,Admin")]
+        [HttpPost("{id}")]
+        public async Task<IActionResult> PostVote(int id, Vote vote)
+		{
+			var game = await _context.Games.FindAsync(id);
+			if (game == null)
+			{
+				return NotFound();
+			}
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (userId == null)
+			{
+				return Unauthorized();
+			}
+			vote.GameId = id;
+			vote.UserId = userId;
+			_context.Votes.Add(vote);
+			await _context.SaveChangesAsync();
+			return CreatedAtAction("GetGame", new { id = game.Id }, game);
+		}
 	}
 }
