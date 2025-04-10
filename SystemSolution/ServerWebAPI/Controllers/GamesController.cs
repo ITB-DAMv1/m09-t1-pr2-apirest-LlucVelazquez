@@ -116,8 +116,9 @@ namespace ServerWebAPI.Controllers
 
 		[Authorize(Roles = "User,Admin")]
         [HttpPost("{id}")]
-        public async Task<IActionResult> PostVote(int id, Vote vote)
+        public async Task<IActionResult> PostVote(int id)
 		{
+            Vote vote = new Vote();
 			var game = await _context.Games.FindAsync(id);
 			if (game == null)
 			{
@@ -130,6 +131,8 @@ namespace ServerWebAPI.Controllers
 			}
 			vote.GameId = id;
 			vote.UserId = userId;
+            vote.Game = game;
+			vote.User = await _context.Users.FindAsync(userId);
 			_context.Votes.Add(vote);
 			await _context.SaveChangesAsync();
 			return CreatedAtAction("GetGame", new { id = game.Id }, game);
