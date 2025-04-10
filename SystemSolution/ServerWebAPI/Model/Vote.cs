@@ -12,10 +12,10 @@ namespace ServerWebAPI.Model
 		public string UserId { get; set; }
 		public DateTime Date { get; set; } = DateTime.Now;
 		[ForeignKey("GameId")]
-		public required Game Game { get; set; }
+		public Game Game { get; set; }
 
 		[ForeignKey("UserId")]
-		public required ApplicationUser User { get; set; }
+		public ApplicationUser User { get; set; }
 
 	}
 }
