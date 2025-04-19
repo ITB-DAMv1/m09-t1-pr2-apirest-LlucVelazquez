@@ -1,0 +1,28 @@
+﻿@page
+@model ClientWebRP.Pages.LoginModel
+@{
+    ViewData["Title"] = "Inici de sessió";
+}
+<h1>Inicia Sessió</h1>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Login.Email"></label>
+        <input asp-for="Login.Email" class="form-control" />
+        <span asp-validation-for="Login.Email" class="text-warning"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Login.Password"></label>
+        <input type="password" asp-for="Login.Password" class="form-control" />
+        <span asp-validation-for="Login.Password" class="text-warning"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Ok</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
