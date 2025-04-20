@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿﻿@{
+    var loggedIn = Tools.TokenHelper.IsTokenSession(Context.Session.GetString("AuthToken"));
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />

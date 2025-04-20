@@ -2,9 +2,38 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var loggedIn = Tools.TokenHelper.IsTokenSession(HttpContext.Session.GetString("AuthToken"));
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div>
+    @if (!Model.Games.Any())
+    {
+        <p>No s'ha trobat cap joc</p>
+    }
+    else
+    {
+        <table class="table">
+            <thread>
+                <tr>
+                    <th>Nom</th>
+                    <th>Descripció</th>
+                    <th>Desarollat</th>
+                    <th>Vots</th>
+                </tr>
+            </thread>
+            <tbody>
+                @foreach (var game in Model.Games)
+                {
+                    <tr>
+                        <td>@game.Title</td>
+                        <td>@game.Description</td>
+                        <td>@game.DeveloperTeam</td>
+                        <td>@game.Votes.Count</td>
+                    </tr>
+                }
+        </table>
+    }
 </div>
