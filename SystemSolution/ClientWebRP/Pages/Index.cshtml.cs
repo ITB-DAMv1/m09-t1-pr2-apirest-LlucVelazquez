@@ -21,7 +21,7 @@ public class IndexModel : PageModel
     public async Task OnGet()
     {
         var client = _httpClientFactory.CreateClient("GameApi");
-        var response = await client.GetAsync("api/games");
+        var response = await client.GetAsync("api/Games");
         if (response.IsSuccessStatusCode)
         {
             var json = await response.Content.ReadAsStringAsync();

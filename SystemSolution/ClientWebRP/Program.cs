@@ -13,10 +13,12 @@ namespace ClientWebRP
 
             string apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"] ?? throw new InvalidOperationException("API base URL not found");
 
-            builder.Services.AddHttpClient("ApiFilms", client =>
+            builder.Services.AddHttpClient("GameApi", client =>
             {
                 client.BaseAddress = new Uri(apiBaseUrl);
             });
+
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
