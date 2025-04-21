@@ -26,7 +26,7 @@ namespace ClientWebRP.Pages
             {
                 return Page();
             }
-            var client = _httpClient.CreateClient("ClientWebRP");
+            var client = _httpClient.CreateClient("GameApi");
             var response = await client.PostAsJsonAsync("api/Auth/register", Register);
             if (response.IsSuccessStatusCode)
             {
