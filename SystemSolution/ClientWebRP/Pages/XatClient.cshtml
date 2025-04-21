@@ -2,7 +2,6 @@
 @model ClientWebRP.Pages.XatClientModel
 @{
     ViewData["Title"] = "XatClient";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <h2>Xat en temps real</h2>
@@ -18,8 +17,6 @@
 <ul id="missatges"></ul>
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
-    <script src="/js/SignalR/signalr.min.js"></script>
-    <script src="/js/chat.js"></script>
     <script>
         // Crear connexió amb el Hub al servidor extern
         const connexio = new signalR.HubConnectionBuilder()
