@@ -1,0 +1,32 @@
+﻿@page
+@model ClientWebRP.Pages.EditGameModel
+@{
+    ViewData["Title"] = "Edita Joc";
+    var loggedIn = Tools.TokenHelper.IsTokenSession(HttpContext.Session.GetString("AuthToken"));
+}
+<h1>Edita Joc</h1>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Game.Title"></label>
+        <input asp-for="Game.Title" class="form-control" />
+        <span asp-validation-for="Game.Title" class="text-warning"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Game.Description"></label>
+        <input asp-for="Game.Description" class="form-control" />
+        <span asp-validation-for="Game.Description" class="text-warning"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Game.DeveloperTeam"></label>
+        <input asp-for="Game.DeveloperTeam" class="form-control" />
+        <span asp-validation-for="Game.DeveloperTeam" class="text-warning"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Edita Joc</button>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

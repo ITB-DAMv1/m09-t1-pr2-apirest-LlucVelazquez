@@ -1,0 +1,38 @@
+﻿@page
+@model ClientWebRP.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Crear nou Compte";
+}
+<h1>Pagina de Registre</h1>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Register.Name"></label>
+        <input asp-for="Register.Name" class="form-control" />
+        <span asp-validation-for="Register.Name" class="text-warning"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Register.UserName"></label>
+        <input asp-for="Register.UserName" class="form-control" />
+        <span asp-validation-for="Register.UserName" class="text-warning"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Register.Email"></label>
+        <input asp-for="Register.Email" class="form-control" />
+        <span asp-validation-for="Register.Email" class="text-warning"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Register.Password"></label>
+        <input type="password" asp-for="Register.Password" class="form-control" />
+        <span asp-validation-for="Register.Password" class="text-warning"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Register.PasswordConfirmed"></label>
+        <input type="password" asp-for="Register.PasswordConfirmed" class="form-control" />
+        <span asp-validation-for="Register.PasswordConfirmed" class="text-warning"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Ok</button>
+</form>

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿﻿@{
+    var loggedIn = Tools.TokenHelper.IsTokenSession(Context.Session.GetString("AuthToken"));
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,7 +18,7 @@
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">ClientWebRP</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -24,8 +27,29 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/XatClient">Xat</a>
                         </li>
+                        @if (loggedIn)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Logout">
+                                    <i class="bi bi-person">Tancar Sessio</i>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login">
+                                    <i class="bi bi-person">Login</i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Register">
+                                    <i class="bi bi-person">Registre</i>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -39,7 +63,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - ClientWebRP - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2025 - Desenvolupat per Lluc Velázquez Berjaga - DAMv1 2025
         </div>
     </footer>
 
