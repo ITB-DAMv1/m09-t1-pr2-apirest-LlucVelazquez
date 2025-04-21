@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace ClientWebRP
 {
     public class Program
@@ -17,7 +19,12 @@ namespace ClientWebRP
             {
                 client.BaseAddress = new Uri(apiBaseUrl);
             });
-
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Login";
+                options.AccessDeniedPath = "/AccessDenied";
+            });
             builder.Services.AddSession();
 
             var app = builder.Build();
