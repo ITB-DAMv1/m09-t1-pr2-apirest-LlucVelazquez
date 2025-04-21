@@ -97,6 +97,16 @@ namespace ServerWebAPI
 					}
 				});
 			});
+			builder.Services.AddCors(options =>
+			{
+				options.AddDefaultPolicy(builder =>
+				{
+					builder.WithOrigins("http://localhost:7034")
+						.AllowAnyHeader()
+						.AllowAnyMethod()
+						.AllowCredentials();
+				});
+			});
             builder.Services.AddSignalR();
 
             var app = builder.Build();
@@ -123,7 +133,8 @@ namespace ServerWebAPI
 
 
             app.MapControllers();
-			app.MapHub<XatHub>("/UserXat");
+            app.UseCors();
+            app.MapHub<XatHub>("/UserXat");
             app.Run();
         }
     }
