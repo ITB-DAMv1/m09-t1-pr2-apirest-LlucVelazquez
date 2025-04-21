@@ -9,6 +9,9 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 <div>
+    <a asp-page="/AddGame" class="btn btn-primary">Afegir Joc</a>
+</div>
+<div>
     @if (!Model.Games.Any())
     {
         <p>No s'ha trobat cap joc</p>
