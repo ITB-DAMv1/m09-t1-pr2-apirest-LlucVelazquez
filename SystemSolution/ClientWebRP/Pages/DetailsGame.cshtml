@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Detalls del joc";
     var loggedIn = Tools.TokenHelper.IsTokenSession(HttpContext.Session.GetString("AuthToken"));
-    var isAdmin = Tools.TokenHelper.IsTokenAdmin(HttpContext.Session.GetString("AuthToken"));
     var game = Model.Game;
 }
 <h1>Detalls Joc</h1>
@@ -12,7 +11,7 @@
     <h2>@game.Title</h2>
     <p><strong>Descripció:</strong> @game.Description</p>
     <p><strong>Desarollat per:</strong> @game.DeveloperTeam</p>
-    <p><strong>Vots:</strong> @game.Votes.Count</p>
+    <p><strong>Vots:</strong> @game.VotesCount</p>
     @if (loggedIn)
     {
         <form method="post" asp-page-handler="Vote" asp-route-id="@game.Id">
@@ -23,24 +22,16 @@
     {
         <button class="btn btn-secondary" disabled title="Només per usuaris autenticats">Votar</button>
     }
-    @if (isAdmin)
-    {
-        <form method="post" asp-page-handler="Delete" asp-route-id="@game.Id">
-            <button type="submit" class="btn btn-danger">Eliminar Joc</button>
-        </form>
-    }
 </div>
 <div>
-    @if (isAdmin)
+    @if (User.IsInRole("Admin"))
     {
-        <form method="post" asp-page-handler="Delete" asp-route-id="@game.Id" class="d-inline">
-            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
-                <i class="bi bi-trash"></i>
-            </button>
-        </form>
-        <a asp-page="/EditGame" asp-route-id="@game.Id" class="btn btn-warning btn-sm">
-            <i class="bi bi-pencil"></i>Editar Joc
-        </a>
+        <td>
+            <a asp-page="Edit" asp-route-id="@game.Id" class="btn btn-primary">Editar</a>
+        </td>
+        <td>
+            <a asp-page="Delete" asp-route-id="@game.Id" class="btn btn-danger">Eliminar</a>
+        </td>
     }
     else
     {

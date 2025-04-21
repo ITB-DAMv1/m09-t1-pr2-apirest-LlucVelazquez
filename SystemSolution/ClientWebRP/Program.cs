@@ -19,15 +19,15 @@ namespace ClientWebRP
             {
                 client.BaseAddress = new Uri(apiBaseUrl);
             });
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+			builder.Services.AddSession();
+			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
                 options.LoginPath = "/Login";
                 options.AccessDeniedPath = "/AccessDenied";
             });
-            builder.Services.AddSession();
-
-            var app = builder.Build();
+			builder.Services.AddAuthorization();
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

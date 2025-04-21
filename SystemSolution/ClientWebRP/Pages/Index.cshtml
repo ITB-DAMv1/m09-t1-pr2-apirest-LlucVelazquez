@@ -8,9 +8,12 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
-<div>
-    <a asp-page="/AddGame" class="btn btn-primary">Afegir Joc</a>
-</div>
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        <a asp-page="/AddGame" class="btn btn-primary">Afegir Joc</a>
+    </div>
+}
 <div>
     @if (!Model.Games.Any())
     {
@@ -25,6 +28,7 @@
                     <th>Descripció</th>
                     <th>Desarollat</th>
                     <th>Vots</th>
+					<th>Accions</th>
                 </tr>
             </thread>
             <tbody>
@@ -35,6 +39,9 @@
                         <td>@game.Description</td>
                         <td>@game.DeveloperTeam</td>
                         <td>@game.Votes.Count</td>
+                        <td>
+                            <a asp-page="Details" asp-route-id="@game.Id" class="btn btn-primary">Detalls</a>
+                        </td>
                     </tr>
                 }
         </table>
