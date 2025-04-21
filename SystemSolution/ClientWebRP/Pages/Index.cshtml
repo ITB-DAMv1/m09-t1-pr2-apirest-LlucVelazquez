@@ -8,6 +8,12 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        <a asp-page="/AddGame" class="btn btn-primary">Afegir Joc</a>
+    </div>
+}
 <div>
     @if (!Model.Games.Any())
     {
@@ -22,6 +28,7 @@
                     <th>Descripció</th>
                     <th>Desarollat</th>
                     <th>Vots</th>
+					<th>Accions</th>
                 </tr>
             </thread>
             <tbody>
@@ -33,20 +40,7 @@
                         <td>@game.DeveloperTeam</td>
                         <td>@game.Votes.Count</td>
                         <td>
-                            @if (Tools.TokenHelper.IsTokenAdmin(HttpContext.Session.GetString("AuthToken")))
-                            {
-                                <form method="post" asp-page-handler="Delete" asp-route-id="@game.Id" class="d-inline">
-                                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                            }
-                            else
-                            {
-                                <button class="btn btn-secondary btn-sm" disabled title="Només per usuaris autenticats">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            }
+                            <a asp-page="Details" asp-route-id="@game.Id" class="btn btn-primary">Detalls</a>
                         </td>
                     </tr>
                 }
