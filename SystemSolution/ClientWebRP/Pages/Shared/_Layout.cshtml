@@ -26,7 +26,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        @if (!loggedIn)
+                        @if (loggedIn)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Logout">
+                                    <i class="bi bi-person">Tancar Sessio</i>
+                                </a>
+                            </li>
+                        }
+                        else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Login">
