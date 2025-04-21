@@ -27,7 +27,7 @@ namespace ClientWebRP.Pages
                 return Page();
             }
             var client = _httpClient.CreateClient("ClientWebRP");
-            var response = await client.PostAsJsonAsync("api/Auth/Register", Register);
+            var response = await client.PostAsJsonAsync("api/Auth/register", Register);
             if (response.IsSuccessStatusCode)
             {
                 var token = await response.Content.ReadAsStringAsync();

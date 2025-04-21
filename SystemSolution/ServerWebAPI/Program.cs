@@ -101,7 +101,7 @@ namespace ServerWebAPI
 			{
 				options.AddDefaultPolicy(builder =>
 				{
-					builder.WithOrigins("http://localhost:7034")
+					builder.WithOrigins("https://localhost:7034")
 						.AllowAnyHeader()
 						.AllowAnyMethod()
 						.AllowCredentials();
